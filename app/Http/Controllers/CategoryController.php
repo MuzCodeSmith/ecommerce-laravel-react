@@ -45,13 +45,60 @@ class CategoryController extends Controller
     }
     
     // this method will return a single category
-    public function show(){
+    public function show($id){
+        $category = Category::find($id);
 
+        if(!$category){
+            return response()->json([
+                'status'=>404,
+                'message'=>'category not found',
+            ]);
+        }
+
+        if($category){
+            return response()->json([
+                'status'=>200,
+                'message'=>'category fetched successfully',
+                'data'=>$category
+            ]);
+        }
     }
 
     // this method will update a single category
-    public function update(){
+    public function update($id,Request $request){
 
+
+        $category = Category::find($id);
+
+        if(!$category){
+            return response()->json([
+                'status'=>401,
+                'message'=>'category not found',
+                'data'=>[]
+            ],401);
+        }
+
+        
+        $validator = Validator::make($request->all(),[
+            'name'=>'required',
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'status'=>400,
+                'errors'=>$validator->errors()
+            ],400); 
+        }
+
+        $category->name = $request->name;
+        $category->status = $request->status;
+        $category->save();
+
+        return response()->json([
+            'status'=>200,
+            'message'=>'category updated successfully',
+            'data'=>$category
+        ]);
     }
 
     // this method will delete a single category
