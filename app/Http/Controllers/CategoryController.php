@@ -98,7 +98,7 @@ class CategoryController extends Controller
             'status'=>200,
             'message'=>'category updated successfully',
             'data'=>$category
-        ]);
+        ],200);
     }
 
     // this method will delete a single category
