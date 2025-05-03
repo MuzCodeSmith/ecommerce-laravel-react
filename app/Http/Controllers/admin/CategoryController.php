@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -102,7 +102,19 @@ class CategoryController extends Controller
     }
 
     // this method will delete a single category
-    public function delete(){
+    public function destroy($id){
+        $category = Category::find($id);
 
+        if(!$category){
+            return response()->json([
+                "status"=>404,
+                "message"=>"category not found"
+            ],404);
+        }
+        $category->delete();
+        return response()->json([
+            "status"=>200,
+            "message"=>"category deleted successfully"
+        ],200);
     }
 }
