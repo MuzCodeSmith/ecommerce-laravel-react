@@ -34,6 +34,7 @@ class BrandController extends Controller
 
         return response()->json([
             'status'=>200,
+            'message'=>'brand added successfully',
             'data'=> $brand
         ],200);
     }
