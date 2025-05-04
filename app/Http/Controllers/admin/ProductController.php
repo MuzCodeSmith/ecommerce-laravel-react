@@ -10,7 +10,12 @@ use Illuminate\Support\Facades\Validator;
 class ProductController extends Controller
 {
     public function index(){
-            
+        $products = Product::orderBy('created_at','DESC')->get();
+        return response()->json([
+            "status"=>200,
+            "message"=>"products fetched successfully",
+            "data"=>$products
+        ],200);
     }
 
     public function store(Request $request){
