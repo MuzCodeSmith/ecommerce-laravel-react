@@ -24,7 +24,7 @@ class BrandController extends Controller
         if($validator->fails()){
             return response()->json([
                 'status'=>400,
-                'message'=> $validator->errors()
+                'errors'=> $validator->errors()
             ],400);
         }
         $brand = new Brand();
@@ -68,7 +68,7 @@ class BrandController extends Controller
         if($validator->fails()){
             return response()->json([
                 'status'=>400,
-                'message'=> $validator->errors()
+                'errors'=> $validator->errors()
             ],400);
         }
         $brand->name=$request->name;
