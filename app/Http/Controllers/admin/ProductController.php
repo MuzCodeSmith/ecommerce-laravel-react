@@ -36,7 +36,7 @@ class ProductController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => 400,
-                'message' => $validator->errors()
+                'errors' => $validator->errors()
             ], 400);
         }
 
