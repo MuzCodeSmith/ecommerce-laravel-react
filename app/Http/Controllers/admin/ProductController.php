@@ -15,7 +15,9 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::orderBy('created_at', 'DESC')->get();
+        $products = Product::orderBy('created_at', 'DESC')
+        ->with('product_images')
+        ->get();
         return response()->json([
             "status" => 200,
             "message" => "products fetched successfully",
@@ -59,8 +61,8 @@ class ProductController extends Controller
 
         // save the product images
 
-        if (!empty($request->gallary)) {
-            foreach ($request->gallary as $key => $TempImageId) {
+        if (!empty($request->gallery)) {
+            foreach ($request->gallery as $key => $TempImageId) {
                 $tempImage = TempImage::find($TempImageId);
 
                 $extArray = explode('.',$tempImage->name);
@@ -101,7 +103,8 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Product::find($id);
+        $product = Product::with('product_images')
+        ->find($id);
 
         if (!$product) {
             return response()->json([
