@@ -22,6 +22,6 @@ Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::resource('products',ProductController::class);
     Route::post('temp-images',[TempImageController::class,'store']);
     Route::post('save-product-image',[ProductController::class,'saveProductImage']);
-    Route::post('change-product-default-image',[ProductController::class,'updateDefaultImage']);
+    Route::get('change-product-default-image',[ProductController::class,'updateDefaultImage']);
 });
 
