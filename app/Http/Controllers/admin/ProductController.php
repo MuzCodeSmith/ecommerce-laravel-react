@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::orderBy('created_at', 'DESC')
-        ->with('product_images')
+        ->with(['product_images','product_sizes'])
         ->get();
         return response()->json([
             "status" => 200,
@@ -105,7 +105,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Product::with('product_images')
+        $product = Product::with(['product_images','product_sizes'])
         ->find($id);
 
         if (!$product) {
