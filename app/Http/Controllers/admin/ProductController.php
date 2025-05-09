@@ -115,9 +115,12 @@ class ProductController extends Controller
             ], 404);
         }
 
+        $productSizes = $product->product_sizes()->pluck('size_id');
+
         return response()->json([
             'status' => 200,
-            'data' => $product
+            'data' => $product,
+            'productSizes'=>$productSizes
         ], 200);
     }
 
