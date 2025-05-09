@@ -205,6 +205,13 @@ class ProductController extends Controller
 
         $product->delete();
 
+        if($product->product_images()){
+            foreach($product->product_images() as $productImage){
+                File::delete(public_path('uploads/products/large/'.$productImage->image));
+                File::delete(public_path('uploads/products/small/'.$productImage->image));
+            }
+        }
+
         return response()->json([
             'status' => 200,
             'data' => "product has been deleted successfully"
@@ -265,7 +272,7 @@ class ProductController extends Controller
     public function deleteProductImage($id){
         $productImage = ProductImage::find($id);
 
-        if($productImage){
+        if(!$productImage){
             return response()->json([
                 "status" => 400,
                 "message" => "image not found",
