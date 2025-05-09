@@ -8,6 +8,7 @@ use App\Models\ProductImage;
 use App\Models\ProductSize;
 use App\Models\TempImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -260,4 +261,25 @@ class ProductController extends Controller
             "message" => "default image changed successfully!",
         ], 200);
     }
+
+    public function deleteProductImage($id){
+        $productImage = ProductImage::find($id);
+
+        if($productImage){
+            return response()->json([
+                "status" => 400,
+                "message" => "image not found",
+            ],200);
+        }
+        File::delete(public_path('uploads/products/large/'.$productImage->image));
+        File::delete(public_path('uploads/products/small/'.$productImage->image));
+
+        $productImage->delete();
+
+        return response()->json([
+            "status" => 200,
+            "message" => "Produc image deleted successfully!",
+        ],200);
+    }
+    
 }
