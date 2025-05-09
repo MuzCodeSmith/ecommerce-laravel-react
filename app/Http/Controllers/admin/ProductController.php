@@ -59,6 +59,14 @@ class ProductController extends Controller
         $product->is_featured = $request->is_featured;
         $product->save();
 
+        if(!empty($request->sizes)){
+            foreach($request->sizes as $sizeId){
+                $productSize = new ProductSize();
+                $productSize->size_id = $sizeId;
+                $productSize->product_id = $product->id;
+                $productSize->save() ;
+            }
+        }
 
         // save the product images
 
