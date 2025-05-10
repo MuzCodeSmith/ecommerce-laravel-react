@@ -202,11 +202,11 @@ class ProductController extends Controller
                 'message' => 'Product not found!'
             ], 404);
         }
-
         $product->delete();
 
-        if($product->product_images()){
-            foreach($product->product_images() as $productImage){
+
+        if($product->product_images){
+            foreach($product->product_images as $productImage){
                 File::delete(public_path('uploads/products/large/'.$productImage->image));
                 File::delete(public_path('uploads/products/small/'.$productImage->image));
             }
