@@ -59,12 +59,14 @@ class ProductController extends Controller
             $catArr = explode(',',$request->category);
             $products= $products->whereIn('category_id',$catArr);
         }
-        $products=$products->get();
 
         if(!empty($request->brand)){
             $brandArr = explode(',',$request->brand);
             $products = $products->whereIn('brand_id',$brandArr);
         }
+
+        $products=$products->get();
+
 
         return response()->json([
             "status"=>200,
