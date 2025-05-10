@@ -52,5 +52,25 @@ class ProductController extends Controller
         ],200);
     }
 
+    public function getProducts(Request $request){
+        $products = Product::orderby('created_at','DESC')->where('status',1);
+
+        if(!empty($request->category)){
+            $catArr = explode(',',$request->category);
+            $products= $products->whereIn('category_id',$catArr);
+        }
+        $products=$products->get();
+
+        if(!empty($request->brand)){
+            $brandArr = explode(',',$request->brand);
+            $products = $products->whereIn('brand_id',$brandArr);
+        }
+
+        return response()->json([
+            "status"=>200,
+            "data"=>$products,
+        ],200);
+    }
+
     
 }
