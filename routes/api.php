@@ -18,6 +18,8 @@ Route::post('/admin/login',[AuthController::class,'authenticate']);
 
 Route::get('get-latest-products',[FrontProductController::class,'latestProducts']);
 Route::get('get-featured-products',[FrontProductController::class,'featuredProducts']);
+Route::get('get-categories',[FrontProductController::class,'getCategories']);
+Route::get('get-brands',[FrontProductController::class,'getBrands']);
 
 Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::resource('categories',CategoryController::class);
