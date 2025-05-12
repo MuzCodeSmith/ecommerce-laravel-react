@@ -27,11 +27,11 @@ Route::get('get-product/{id}', [FrontProductController::class, 'getProduct']);
 Route::post('register', [AccountController::class, 'register']);
 Route::post('login', [AccountController::class, 'authenticate']);
 
-Route::group(['middleware' => 'auth:sanctum'], function () {
+Route::group(['middleware' => ['auth:sanctum','checkUserRole']], function () {
     Route::post('save-order', [OrderController::class, 'saveOrder']);
 });
 
-Route::group(['middleware' => 'auth:sanctum','checkAdminRole'], function () {
+Route::group(['middleware' => ['auth:sanctum','checkAdminRole']], function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('brands', BrandController::class);
     Route::get('sizes', [SizeController::class, 'index']);
