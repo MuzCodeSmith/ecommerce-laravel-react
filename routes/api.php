@@ -24,6 +24,7 @@ Route::get('get-brands',[FrontProductController::class,'getBrands']);
 Route::get('get-products',[FrontProductController::class,'getProducts']);
 Route::get('get-product/{id}',[FrontProductController::class,'getProduct']);
 Route::post('register',[AccountController::class,'register']);
+Route::post('login',[AccountController::class,'authenticate']);
 
 Route::group(['middleware'=>'auth:sanctum'], function(){
     Route::resource('categories',CategoryController::class);
