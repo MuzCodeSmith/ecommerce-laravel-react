@@ -28,7 +28,7 @@ class OrderController extends Controller
             $order->shipping = $request->shipping;
             $order->payment_status = $request->payment_status;
             $order->status = $request->status;
-            $order->user_id = $request->user_id;
+            $order->user_id = $request->user()->id;
             $order->save();
     
             // save order items
@@ -36,7 +36,7 @@ class OrderController extends Controller
                 $orderItem = new OrderItem();
                 $orderItem->price = $item['qty'] * $item['price'] ;
                 $orderItem->order_id = $order->id;
-                $orderItem->name = $item['name'];
+                $orderItem->name = $item['title'];
                 $orderItem->unit_price =$item['price'] ;
                 $orderItem->qty =$item['qty'];
                 $orderItem->product_id =$item['product_id'];
@@ -46,6 +46,7 @@ class OrderController extends Controller
     
             return response()->json([
                 "status" => 200,
+                'id'=>$order->id,
                 "message" => "Order placed Successfully",
             ],200);
         }else{
