@@ -19,9 +19,17 @@ class OrderController extends Controller
     public function detail($id){
         $order = Order::with('items')->find($id);
 
+        if(!$order){
+            return response()->json([
+                "status"=>200,
+                "data"=>$order
+            ],200); 
+        }
+
         return response()->json([
-            "status"=>200,
-            "data"=>$order
-        ],200);
+            "status"=>404,
+            "message"=>"Order not found!",
+            "data"=>[]
+        ],404);
     }
 }
