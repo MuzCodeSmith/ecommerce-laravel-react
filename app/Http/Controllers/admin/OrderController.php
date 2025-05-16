@@ -8,28 +8,30 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index(){
-        $orders = Order::orderBy('created_at','DESC')->with('items')->get();
+    public function index()
+    {
+        $orders = Order::orderBy('created_at', 'DESC')->with('items')->get();
 
         return response()->json([
-            "status"=>200,
-            "data"=>$orders
-        ],200);
+            "status" => 200,
+            "data" => $orders
+        ], 200);
     }
-    public function detail($id){
+    public function detail($id)
+    {
         $order = Order::with('items')->find($id);
 
-        if(!$order){
+        if (!$order) {
             return response()->json([
-                "status"=>200,
-                "data"=>$order
-            ],200); 
+                "status" => 404,
+                "message" => "Order not found!",
+                "data" => []
+            ], 404);
         }
 
         return response()->json([
-            "status"=>404,
-            "message"=>"Order not found!",
-            "data"=>[]
-        ],404);
+            "status" => 200,
+            "data" => $order
+        ], 200);
     }
 }
