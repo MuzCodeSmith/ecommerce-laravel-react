@@ -19,7 +19,7 @@ class OrderController extends Controller
     }
     public function detail($id)
     {
-        $order = Order::with('items')->find($id);
+        $order = Order::with('items','items.product')->find($id);
 
         if (!$order) {
             return response()->json([
