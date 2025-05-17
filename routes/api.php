@@ -31,6 +31,7 @@ Route::post('login', [AccountController::class, 'authenticate']);
 Route::group(['middleware' => ['auth:sanctum','checkUserRole']], function () {
     Route::post('save-order', [OrderController::class, 'saveOrder']);
     Route::get('get-order-details/{id}', [AccountController::class, 'getOrderDetails']);
+    Route::get('get-orders', [AccountController::class, 'getOrders']);
 });
 
 Route::group(['middleware' => ['auth:sanctum','checkAdminRole']], function () {
@@ -45,5 +46,4 @@ Route::group(['middleware' => ['auth:sanctum','checkAdminRole']], function () {
     Route::get('orders', [AdminOrderController::class, 'index']);
     Route::get('orders/{id}', [AdminOrderController::class, 'detail']);
     Route::put('update-order/{id}', [AdminOrderController::class, 'updateOrder']);
-
 });
